@@ -3,9 +3,7 @@ FROM ubuntu:trusty
 
 MAINTAINER aegoose "aegoose@126.com"
 
-#ENV GOPATH /data/xvdb/go
-#ENV GOROOT /usr/local/go
-#ENV PATH $GOROOT/bin:$GOPATH/bin:$PATH
+ADD sources.list /etc/apt/
 
 RUN apt-get update
 
