@@ -9,7 +9,7 @@ MAINTAINER aegoose "aegoose@126.com"
 # config yum for centos7
 
 RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+    && rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 # dependency compile libs
 # below is other libs auto enabled by php install
@@ -93,7 +93,7 @@ RUN pip install Twisted redis protobuf supervisor
 
 # install protobuf (may no use)
 # RUN yum -y install protobuf protobuf-python
-
+RUN yum clean all
 CMD [ "/usr/sbin/init" ]
 
 
