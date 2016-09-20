@@ -5,8 +5,13 @@ MAINTAINER aegoose "aegoose@126.com"
 
 # RUN hostname app
 
-# dependency compile libs
+# RUN yum -y install sudo epel-release && yum clean all
+# config yum for centos7
 
+RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+# dependency compile libs
 # below is other libs auto enabled by php install
 # yum -y install libjpeg libpng freetype libmcrypt libxml2 openssl libcurl zlib pcre gd
 
@@ -16,15 +21,18 @@ RUN yum install -y gcc-c++ make
 #   libxml2-devel openssl-devel libcurl-devel zlib-devel \
 #   pcre-devel ncurses-devel gd-devel
 
-# RUN yum -y install sudo epel-release && yum clean all
-# config yum for centos7
+# php56
+# RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+# RUN yum list --enablerepo=remi --enablerepo=remi-php56 | grep php
+# RUN yum install -y --enablerepo=remi \
+#   --enablerepo=remi-php56 php \
+#   php-opcache php-devel \
+#   php-fpm php-soap php-pecl-redis php-pecl-memcache \
+#   php-mbstring php-mcrypt php-mysqlnd \
+#   php-phpunit-PHPUnit php-pecl-xdebug php-pecl-xhprof
 
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-# whatever repo, same install
-
-
-RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-# yum search php56w
+# php56w
 RUN yum install -y php56w php56w-opcache php56w-fpm \
   php56w-gd php56w-mbstring php56w-mcrypt php56w-mysqlnd \
   php56w-pear php56w-pecl-memcached php56w-pecl-redis php56w-soap \
@@ -44,18 +52,6 @@ RUN yum install -y php56w php56w-opcache php56w-fpm \
 # t1lib:5.1.2         libevent:2.0.21     libmemcached:1.0.16
 
 
-# RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-# RUN rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-# RUN yum list --enablerepo=remi --enablerepo=remi-php56 | grep php
-# RUN yum install -y --enablerepo=remi \
-  # --enablerepo=remi-php56 php \
-  # php-opcache php-devel \
-  # php-fpm php-soap php-pecl-redis php-pecl-memcache \
-  # php-mbstring php-mcrypt php-mysqlnd \
-  # php-phpunit-PHPUnit php-pecl-xdebug php-pecl-xhprof
-
-RUN yum clean all
-
 # RUN hostname app
 
 # install libiconv
@@ -66,18 +62,18 @@ RUN cd /root \
   && ./configure && make && make install \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
+RUN yum --enablerepo=epel -y install libevent redis memcached sphinx python-devel
+
 # install libevent
-RUN yum --enablerepo=epel -y install libevent
-
+# RUN yum --enablerepo=epel -y install libevent
 # install redis (only use redis-cli)
-RUN yum --enablerepo=epel -y install redis
-
+# RUN yum --enablerepo=epel -y install redis
 # install memcached (only use memcached lib)
-RUN yum -y install memcached
+#RUN yum -y install memcached
 
 # python plugin install
 # 1.python install dependency
-RUN yum -y install python-devel
+# RUN yum -y install python-devel
 # dependency: python-devel:2.7.5  python:2.7.5  python-libs:2.7.5
 # 2.install pip
 # RUN yum -y install python-pip
@@ -87,7 +83,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python
 RUN pip install Twisted redis protobuf supervisor
 
 # install sphinx
-RUN yum -y install sphinx
+# RUN yum -y install sphinx
 # dependency: mariadb-libs:5.5.5 postgresql-libs:9.2.15
 
 # COPY ./php/php-fpm.conf /etc/php-fpm.d/www.conf
