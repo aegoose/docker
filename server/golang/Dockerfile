@@ -76,9 +76,9 @@ RUN rm -rf /usr/local/go/src/github.com/revel \
 
 # revel-0.12 need to rebuild
 RUN go get -u github.com/agtorre/gocolorize \
-          github.com/robfig/config \
-          github.com/robfig/pathtree \
-          gopkg.in/fsnotify.v1
+  && go get -u github.com/robfig/config \
+  && go get -u github.com/robfig/pathtree \
+  && go get -u gopkg.in/fsnotify.v1
 
 # build revel
 RUN cd /usr/local/go/src \
@@ -86,18 +86,18 @@ RUN cd /usr/local/go/src \
 
 # plugin for platform-core ...
 RUN go get -u github.com/beego/bee \
-              github.com/jinzhu/gorm \
-              github.com/astaxie/beego/httplib \
-              github.com/garyburd/redigo/redis \
-              github.com/go-sql-driver/mysql \
-              github.com/astaxie/beego/logs \
-              github.com/eclipse/paho.mqtt.golang \
-              github.com/ErikDubbelboer/gspt \
-              github.com/stretchr/testify/assert \
-              github.com/syndtr/goleveldb/leveldb \
-              github.com/jeffail/tunny \
-              github.com/robfig/cron \
-              github.com/pborman/uuid
+  && go get -u github.com/jinzhu/gorm \
+  && go get -u github.com/astaxie/beego/httplib \
+  && go get -u github.com/garyburd/redigo/redis \
+  && go get -u github.com/go-sql-driver/mysql \
+  && go get -u github.com/astaxie/beego/logs \
+  && go get -u github.com/eclipse/paho.mqtt.golang \
+  && go get -u github.com/ErikDubbelboer/gspt \
+  && go get -u github.com/stretchr/testify/assert \
+  && go get -u github.com/syndtr/goleveldb/leveldb \
+  && go get -u github.com/jeffail/tunny \
+  && go get -u github.com/robfig/cron \
+  && go get -u github.com/pborman/uuid
 
 RUN yum clean all
 # install sphinx
