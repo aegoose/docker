@@ -5,8 +5,8 @@ MAINTAINER aegoose "aegoose@126.com"
 
 # RUN hostname go
 
-RUN yum install -y epel-release gcc-c++ make \
-            redis memcached python-devel python-pip
+RUN yum install -y epel-release gcc-c++ make
+RUN yum install -y redis memcached python-devel python-pip
 # config yum for centos7
 # RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
 # RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
