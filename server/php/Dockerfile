@@ -5,10 +5,9 @@ MAINTAINER aegoose "aegoose@126.com"
 
 # RUN hostname app
 
-RUN yum install -y epel-release gcc-c++ make
-# RUN yum -y install sudo epel-release && yum clean all
-# config yum for centos7
-# RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# RUN yum install -y epel-release gcc-c++ make cronie
+
+# add php source
 RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 # dependency compile libs
@@ -50,8 +49,6 @@ RUN yum install -y php56w php56w-opcache php56w-fpm \
 # libxslt:1.1.28      mailcap:2.1.41      systemd-sysv:219
 # t1lib:5.1.2         libevent:2.0.21     libmemcached:1.0.16
 
-
-# RUN hostname app
 
 # install libiconv
 RUN cd /root \
