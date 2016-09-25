@@ -59,7 +59,7 @@ RUN cd /root \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
 RUN yum -y install libevent \
-    redis memcached sphinx \
+    nginx redis memcached sphinx \
     python-devel python-pip
 
 # install libevent
