@@ -5,22 +5,18 @@ MAINTAINER aegoose "aegoose@126.com"
 
 # RUN hostname go
 
-# dependency compile libs
+RUN yum install -y epel-release gcc-c++ make \
+            redis memcached python-devel python-pip
+# config yum for centos7
+# RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
+# RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
+# dependency compile libs
 # below is other libs auto enabled by php install
 # yum -y install libjpeg libpng freetype libmcrypt libxml2 openssl libcurl zlib pcre gd
-
-# below is the libs for compile
-RUN yum install -y gcc-c++ make 
 # yum -y install libjpeg-devel libpng-devel freetype-devel libmcrypt-devel \
 #   libxml2-devel openssl-devel libcurl-devel zlib-devel \
 #   pcre-devel ncurses-devel gd-devel
-
-# config yum for centos7
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
-# RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-
-RUN yum --enablerepo=epel -y install redis memcached python-devel
 
 # install redis (only use redis-cli)
 # RUN yum --enablerepo=epel -y install redis
@@ -32,12 +28,15 @@ RUN yum --enablerepo=epel -y install redis memcached python-devel
 # RUN yum -y install python-devel
 # dependency: python-devel:2.7.5  python:2.7.5  python-libs:2.7.5
 # 2.install pip
-# RUN yum -y install python-pip
-RUN curl https://bootstrap.pypa.io/get-pip.py | python 
+# RUN curl https://bootstrap.pypa.io/get-pip.py | python 
 # dependency: python-setuptools:0.9.8   python-backports:1.0   python-backports-ssl_match_hostname:3.4.0.2
 # 2.install tools
 RUN pip install Twisted redis protobuf supervisor
-
+# install protobuf (may no use)
+# RUN yum -y install protobuf protobuf-python
+# install sphinx
+# RUN yum install sphinx 
+# dependency: mariadb-libs:5.5.5 postgresql-libs:9.2.15 
 
 # install mqtt
 RUN curl -o /etc/yum.repos.d/mqtt.repo http://download.opensuse.org/repositories/home:/oojah:/mqtt/CentOS_CentOS-7/home:oojah:mqtt.repo \
@@ -100,18 +99,9 @@ RUN go get github.com/beego/bee \
   github.com/pborman/uuid
 
 RUN yum clean all
-# install sphinx
-# RUN yum install sphinx 
-# dependency: mariadb-libs:5.5.5 postgresql-libs:9.2.15 
-
-# COPY ./php/php-fpm.conf /etc/php-fpm.d/www.conf
 # COPY ./sphinx/sphinx.conf /etc/sphinx.conf
 # COPY ./redis/redis.conf /etc/redis.conf
 # COPY ./supervisord/supervisor.conf /etc/supervisor.conf
-# COPY ./supervisord/supervisor.conf /etc/supervisor.conf
-
-# install protobuf (may no use)
-# RUN yum -y install protobuf protobuf-python
 
 CMD [ "/usr/sbin/init" ]
 
