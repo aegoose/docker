@@ -18,18 +18,18 @@ RUN yum install -y gcc-c++ make
 
 # config yum for centos7
 RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
-RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+# RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
+RUN yum --enablerepo=epel -y install redis memcached python-devel
 
 # install redis (only use redis-cli)
-RUN yum --enablerepo=epel -y install redis
-
+# RUN yum --enablerepo=epel -y install redis
 # install memcached (only use memcached lib)
-RUN yum -y install memcached
-
+# RUN yum -y install memcached
 
 # python plugin install
 # 1.python install dependency
-RUN yum -y install python-devel
+# RUN yum -y install python-devel
 # dependency: python-devel:2.7.5  python:2.7.5  python-libs:2.7.5
 # 2.install pip
 # RUN yum -y install python-pip
@@ -75,29 +75,29 @@ RUN rm -rf /usr/local/go/src/github.com/revel \
     && ln -sf /usr/local/go/src/github.com/golang/sys golang.org/x/sys 
 
 # revel-0.12 need to rebuild
-RUN go get -u github.com/agtorre/gocolorize \
-  && go get -u github.com/robfig/config \
-  && go get -u github.com/robfig/pathtree \
-  && go get -u gopkg.in/fsnotify.v1
+RUN go get github.com/agtorre/gocolorize \
+  github.com/robfig/config \
+  github.com/robfig/pathtree \
+  gopkg.in/fsnotify.v1
 
 # build revel
 RUN cd /usr/local/go/src \
     && go build -o ../bin/revel github.com/revel/cmd/revel/ 
 
 # plugin for platform-core ...
-RUN go get -u github.com/beego/bee \
-  && go get -u github.com/jinzhu/gorm \
-  && go get -u github.com/astaxie/beego/httplib \
-  && go get -u github.com/garyburd/redigo/redis \
-  && go get -u github.com/go-sql-driver/mysql \
-  && go get -u github.com/astaxie/beego/logs \
-  && go get -u github.com/eclipse/paho.mqtt.golang \
-  && go get -u github.com/ErikDubbelboer/gspt \
-  && go get -u github.com/stretchr/testify/assert \
-  && go get -u github.com/syndtr/goleveldb/leveldb \
-  && go get -u github.com/jeffail/tunny \
-  && go get -u github.com/robfig/cron \
-  && go get -u github.com/pborman/uuid
+RUN go get github.com/beego/bee \
+  github.com/jinzhu/gorm \
+  github.com/astaxie/beego/httplib \
+  github.com/garyburd/redigo/redis \
+  github.com/go-sql-driver/mysql \
+  github.com/astaxie/beego/logs \
+  github.com/eclipse/paho.mqtt.golang \
+  github.com/ErikDubbelboer/gspt \
+  github.com/stretchr/testify/assert \
+  github.com/syndtr/goleveldb/leveldb \
+  github.com/jeffail/tunny \
+  github.com/robfig/cron \
+  github.com/pborman/uuid
 
 RUN yum clean all
 # install sphinx
