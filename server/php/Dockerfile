@@ -5,18 +5,17 @@ MAINTAINER aegoose "aegoose@126.com"
 
 # RUN hostname app
 
+RUN yum install -y epel-release gcc-c++ make
 # RUN yum -y install sudo epel-release && yum clean all
 # config yum for centos7
-
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-    && rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+# RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 # dependency compile libs
 # below is other libs auto enabled by php install
 # yum -y install libjpeg libpng freetype libmcrypt libxml2 openssl libcurl zlib pcre gd
 
 # below is the libs for compile
-RUN yum install -y gcc-c++ make
 # yum -y install libjpeg-devel libpng-devel freetype-devel libmcrypt-devel \
 #   libxml2-devel openssl-devel libcurl-devel zlib-devel \
 #   pcre-devel ncurses-devel gd-devel
@@ -62,7 +61,9 @@ RUN cd /root \
   && ./configure && make && make install \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
-RUN yum --enablerepo=epel -y install libevent redis memcached sphinx python-devel
+RUN yum -y install libevent \
+    redis memcached sphinx \
+    python-devel python-pip
 
 # install libevent
 # RUN yum --enablerepo=epel -y install libevent
@@ -77,7 +78,7 @@ RUN yum --enablerepo=epel -y install libevent redis memcached sphinx python-deve
 # dependency: python-devel:2.7.5  python:2.7.5  python-libs:2.7.5
 # 2.install pip
 # RUN yum -y install python-pip
-RUN curl https://bootstrap.pypa.io/get-pip.py | python
+# RUN curl https://bootstrap.pypa.io/get-pip.py | python
 # dependency: python-setuptools:0.9.8   python-backports:1.0   python-backports-ssl_match_hostname:3.4.0.2
 # 2.install tools
 RUN pip install Twisted redis protobuf supervisor
