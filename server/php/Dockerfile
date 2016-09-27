@@ -61,6 +61,8 @@ RUN cd /root \
 RUN yum -y install libevent \
     nginx redis memcached sphinx \
     python-devel python-pip
+# install node js
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash 
 
 # install libevent
 # RUN yum --enablerepo=epel -y install libevent
@@ -91,6 +93,9 @@ RUN pip install Twisted redis protobuf supervisor
 
 # install protobuf (may no use)
 # RUN yum -y install protobuf protobuf-python
+
+RUN useradd -m -d /home/deploy -s /bin/bash -c 'www deploy user' -g root deploy
+
 RUN yum clean all
 CMD [ "/usr/sbin/init" ]
 
