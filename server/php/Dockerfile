@@ -59,10 +59,11 @@ RUN cd /root \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
 RUN yum -y install libevent \
-    nginx redis memcached sphinx \
+    nginx redis memcached sphinx mysql \
     python-devel python-pip
 # install node js
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash 
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
+RUN nvm install v4.5.0
 
 # install libevent
 # RUN yum --enablerepo=epel -y install libevent
@@ -86,15 +87,8 @@ RUN pip install Twisted redis protobuf supervisor
 # RUN yum -y install sphinx
 # dependency: mariadb-libs:5.5.5 postgresql-libs:9.2.15
 
-# COPY ./php/php-fpm.conf /etc/php-fpm.d/www.conf
-# COPY ./sphinx/sphinx.conf /etc/sphinx.conf
-# COPY ./redis/redis.conf /etc/redis.conf
-# COPY ./supervisord/supervisor.conf /etc/supervisor.conf
-
 # install protobuf (may no use)
 # RUN yum -y install protobuf protobuf-python
-
-RUN useradd -m -d /home/deploy -s /bin/bash -c 'www deploy user' -g root deploy
 
 RUN yum clean all
 CMD [ "/usr/sbin/init" ]
