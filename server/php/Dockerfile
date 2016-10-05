@@ -63,7 +63,10 @@ RUN yum -y install libevent \
     python-devel python-pip
 # install node js
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
-RUN nvm install v4.5.0
+ENV NVM_DIR="/root/.nvm"
+RUN [ -s "/root/.nvm/nvm.sh" ] \
+  && . "/root/.nvm/nvm.sh" \
+  && nvm install v4.5.0
 
 # install libevent
 # RUN yum --enablerepo=epel -y install libevent
