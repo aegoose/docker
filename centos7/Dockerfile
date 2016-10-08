@@ -22,6 +22,8 @@ RUN yum install -y epel-release gcc-c++ make cronie
 # config yum for centos7
 # RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
+RUN rm -rf /etc/localtime && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 RUN yum clean all
 #&& yum makecache
 
