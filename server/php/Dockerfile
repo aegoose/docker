@@ -59,14 +59,14 @@ RUN cd /root \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
 RUN yum -y install libevent \
-    nginx redis memcached sphinx mysql \
+    nginx redis memcached sphinx mysql nodejs \
     python-devel python-pip
 # install node js
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
-ENV NVM_DIR="/root/.nvm"
-RUN [ -s "/root/.nvm/nvm.sh" ] \
-  && . "/root/.nvm/nvm.sh" \
-  && nvm install v4.5.0
+#RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
+#ENV NVM_DIR="/root/.nvm"
+#RUN [ -s "/root/.nvm/nvm.sh" ] \
+#  && . "/root/.nvm/nvm.sh" \
+#  && nvm install v4.5.0
 
 # install libevent
 # RUN yum --enablerepo=epel -y install libevent
