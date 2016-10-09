@@ -35,8 +35,10 @@ RUN curl -o /etc/yum.repos.d/mqtt.repo http://download.opensuse.org/repositories
         libmosquittopp-devel \
         python-mosquitto
 
-ENV GOPATH="/usr/local/go"
-ENV PATH="${GOPATH}/bin:${PATH}"
+ENV GOPATH /usr/local/go:/opt/local/go
+ENV PATH ${GOPATH}/bin:${PATH}
+VOLUME /usr/local/go
+VOLUME /opt/local/go
 
 # install revel-0.12
 RUN rm -rf /usr/local/go/src/github.com/revel \
