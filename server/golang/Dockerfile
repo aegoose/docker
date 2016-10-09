@@ -35,10 +35,8 @@ RUN curl -o /etc/yum.repos.d/mqtt.repo http://download.opensuse.org/repositories
         libmosquittopp-devel \
         python-mosquitto
 
-ENV GOPATH /usr/local/go:/opt/local/go
+ENV GOPATH /usr/local/go
 ENV PATH ${GOPATH}/bin:${PATH}
-VOLUME /usr/local/go
-VOLUME /opt/local/go
 
 # install revel-0.12
 RUN rm -rf /usr/local/go/src/github.com/revel \
@@ -73,19 +71,19 @@ RUN cd /usr/local/go/src \
     && go build -o ../bin/revel github.com/revel/cmd/revel/
 
 # plugin for platform-core ...
-RUN go get github.com/beego/bee \
-  github.com/jinzhu/gorm \
-  github.com/astaxie/beego/httplib \
-  github.com/garyburd/redigo/redis \
-  github.com/go-sql-driver/mysql \
-  github.com/astaxie/beego/logs \
-  github.com/eclipse/paho.mqtt.golang \
-  github.com/ErikDubbelboer/gspt \
-  github.com/stretchr/testify/assert \
-  github.com/syndtr/goleveldb/leveldb \
-  github.com/jeffail/tunny \
-  github.com/robfig/cron \
-  github.com/pborman/uuid
+#RUN go get github.com/beego/bee \
+#  github.com/jinzhu/gorm \
+#  github.com/astaxie/beego/httplib \
+#  github.com/garyburd/redigo/redis \
+#  github.com/go-sql-driver/mysql \
+#  github.com/astaxie/beego/logs \
+#  github.com/eclipse/paho.mqtt.golang \
+#  github.com/ErikDubbelboer/gspt \
+#  github.com/stretchr/testify/assert \
+#  github.com/syndtr/goleveldb/leveldb \
+#  github.com/jeffail/tunny \
+#  github.com/robfig/cron \
+#  github.com/pborman/uuid
 
 RUN yum clean all
 
