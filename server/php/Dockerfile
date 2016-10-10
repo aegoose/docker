@@ -94,6 +94,6 @@ RUN pip install Twisted redis protobuf supervisor
 # RUN yum -y install protobuf protobuf-python
 
 RUN yum clean all
-CMD [ "/usr/sbin/init" ]
+CMD [ "/sbin/init" ]
 
 
