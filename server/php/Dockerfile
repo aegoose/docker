@@ -58,7 +58,7 @@ RUN cd /root \
   && ./configure && make && make install \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
-RUN yum -y install libevent \
+RUN yum -y install libevent zip\
     nginx redis memcached sphinx mysql nodejs \
     python-devel python-pip
 # install node js
