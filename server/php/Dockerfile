@@ -33,7 +33,7 @@ RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 # php56w
 RUN yum install -y php56w php56w-opcache php56w-fpm \
   php56w-gd php56w-mbstring php56w-mcrypt php56w-mysqlnd \
-  php56w-pear php56w-pecl-memcached php56w-pecl-redis php56w-soap \
+  php56w-pear php56w-pecl-memcached php56w-pecl-redis php56w-soap php56w-pecl-sphinx \
   php56w-tidy php56w-xml
 # Dependency extensions
 # pphp56w-common:5.6.25  php56w-cli:5.6.25      php56w-pecl-igbinary:1.2.12
