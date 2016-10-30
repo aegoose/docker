@@ -33,8 +33,10 @@ RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 # php56w
 RUN yum install -y php56w php56w-opcache php56w-fpm \
   php56w-gd php56w-mbstring php56w-mcrypt php56w-mysqlnd \
-  php56w-pear php56w-pecl-memcached php56w-pecl-redis php56w-soap php56w-pecl-sphinx \
+  php56w-pear php56w-pecl-memcached php56w-pecl-redis php56w-soap \
   php56w-tidy php56w-xml
+
+# php-pecl-sphinx sphinx
 # Dependency extensions
 # pphp56w-common:5.6.25  php56w-cli:5.6.25      php56w-pecl-igbinary:1.2.12
 # php56w-pdo:5.6.25      php56w-process:5.6.25
@@ -59,8 +61,13 @@ RUN cd /root \
   && cd /root && rm -rf libiconv-1.9.2 libiconv-1.9.2.tar.gz
 
 RUN yum -y install libevent zip which telnet bind-utils \
-    nginx redis memcached sphinx mysql nodejs \
+    nginx redis memcached mysql nodejs \
     python-devel python-pip
+
+RUN cd /root \
+  && curl -o sphinx-2.2.11-1.rpm http://sphinxsearch.com/files/sphinx-2.2.11-1.rhel7.x86_64.rpm \
+  && yum install -y postgresql-libs unixODBC
+  && yum install -y ./sphinx-2.2.11-1.rpm
 # install node js
 #RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
 #ENV NVM_DIR="/root/.nvm"
