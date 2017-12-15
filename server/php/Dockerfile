@@ -67,7 +67,8 @@ RUN yum -y install libevent zip which telnet bind-utils \
 RUN cd /root \
   && curl -o sphinx-2.2.11-1.rpm http://sphinxsearch.com/files/sphinx-2.2.11-1.rhel7.x86_64.rpm \
   && yum install -y postgresql-libs unixODBC \
-  && yum install -y ./sphinx-2.2.11-1.rpm
+  && yum install -y ./sphinx-2.2.11-1.rpm \
+  && rm -rf /root/sphinx-2.*
 # install node js
 #RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
 #ENV NVM_DIR="/root/.nvm"
@@ -107,7 +108,7 @@ RUN cd /root \
   && phpize \
   && ./configure --with-php-config=/usr/bin/php-config \
   && make && make install \
-  && cd /root && rm -rf /uuid-1.0.4*
+  && cd /root && rm -rf /root/uuid-1.0.4*
 
 RUN yum clean all
 CMD [ "/sbin/init" ]
