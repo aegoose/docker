@@ -100,6 +100,15 @@ RUN pip install Twisted redis protobuf supervisor
 # install protobuf (may no use)
 # RUN yum -y install protobuf protobuf-python
 
+RUN cd /root \
+  && yum install -y php56w-pgsql php56w-devel libuuid-devel \
+  && curl -o uuid-1.0.4.tgz http://pecl.php.net/get/uuid-1.0.4.tgz \
+  && tar -zxvf uuid-1.0.4.tgz && cd /root/uuid-1.0.4 \
+  && phpize \
+  && ./configure --with-php-config=/usr/bin/php-config \
+  && make && make install \
+  && cd /root && rm -rf /uuid-1.0.4*
+
 RUN yum clean all
 CMD [ "/sbin/init" ]
 
