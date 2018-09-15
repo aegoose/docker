@@ -54,10 +54,13 @@ RUN rm -rf /usr/local/go/src/github.com/revel \
           /usr/local/go/src/github.com/golang/net \
   && git clone https://github.com/golang/sys.git \
           /usr/local/go/src/github.com/golang/sys \
+  && git clone https://github.com/golang/text.git \
+          /usr/local/go/src/github.com/golang/text \
   && rm -rf /usr/local/go/src/golang.org/x \
     && mkdir -p /usr/local/go/src/golang.org/x \
     && cd /usr/local/go/src/ \
     && ln -sf /usr/local/go/src/github.com/golang/net golang.org/x/net \
+    && ln -sf /usr/local/go/src/github.com/golang/text golang.org/x/text \
     && ln -sf /usr/local/go/src/github.com/golang/sys golang.org/x/sys
 
 # revel-0.12 need to rebuild
@@ -71,7 +74,7 @@ RUN cd /usr/local/go/src \
     && go build -o ../bin/revel github.com/revel/cmd/revel/
 
 # plugin for platform-core ...
-#RUN go get github.com/beego/bee \
+# RUN go get github.com/beego/bee \
 #  github.com/jinzhu/gorm \
 #  github.com/astaxie/beego/httplib \
 #  github.com/garyburd/redigo/redis \
