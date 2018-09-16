@@ -1,0 +1,84 @@
+version: '3'
+# ${环境变量}
+services:
+  fpm:
+    build: 
+      context: ./php
+      dockerfile: fpm.Dockerfile
+    image: 'fpm:5.4.26'
+
+  fpm_server:
+    build: 
+      context: ./php
+    image: 'nandmall'
+    # user: "${UID}" #:${GID}"
+    volumes:
+      - ./<php-project>:/wwwroot/<php-project>:rw
+      - logs_path:/logs:rw
+      - fpm_data_path:/data
+    depends_on:
+      - fpm
+    ports:
+      - 8088:80
+      # - 9000:9000
+    # extra_hosts:
+      # - "platform_core:${CORE_HOST}"
+    stop_grace_period: 1s
+
+  # 到时考虑外链到其他平台上
+  mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - mysql_data_path:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: nandmall
+    ports:
+      - 3306:3306
+
+   # 到时考虑外链到其他环境上
+  redis:
+    image: redis
+    restart: always
+    volumes:
+      - redis_data_path:/data
+    ports:
+      - 6379:6379
+
+
+  # mariadb:
+  #   image: mariadb
+  #   restart: always
+  #   volumes:
+  #     - ./data/mysql:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ddc123
+  #   ports:
+  #     - 3306:3306
+
+
+volumes:
+  redis_data_path:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/nandmall/redis
+      o: bind
+  mysql_data_path:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/nandmall/mysql
+      o: bind
+  fpm_data_path:
+    driver: local
+    driver_opts:
+      type: none
+      device: /docker_volumes/nandmall/data
+      o: bind
+  logs_path:
+    driver: local
+    driver_opts:
+      type: none
+      device: /docker_volumes/nandmall/logs
+      o: bind
